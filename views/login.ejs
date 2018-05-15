@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/login.css">
+</head>
+<body>
+     <%- include('./footer.ejs') %>
+    <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+              <div class="navbar-header">               
+                <a class="navbar-brand" href="#">包包商城</a>
+              </div>         
+            </div><!-- /.container-fluid -->
+          </nav>
+    </div>
+
+    <div class="container">
+        <div class="panel panel-default login-box">
+            <div class="panel-heading">
+                登陆
+            </div> 
+            <div class="panel-body">
+               <form id="login-form">
+                    <div class="form-group">
+                        <label for="">用户名:</label>
+                        <input id="username" type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="">密码:</label>
+                        <input id="password" type="password" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-success">提交</button>
+                        <button type="reset" class="btn btn-success">重置</button>
+                        <a href="/register" class="btn btn-info">去注册</a>
+                        <a href="/" class="btn btn-info">返回首页</a>
+                    </div>
+               </form>
+            </div> 
+        </div>
+    </div>
+
+     <!-- 模态框 modal-sm小模态框-->
+     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog modal-sm" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              info:
+            </div>
+            <div class="modal-body">
+              登陆失败！
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    <script src="/lib/jquery.js"></script>
+    <script src="/lib/jquery-cookie.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+        $("#login-form").submit(function (e) {//阻止表单提交 表单提交是浏览器的默认行为
+            e.preventDefault()
+            login()
+        })
+
+        function login() {
+            let username = $("#username").val()
+            let password = $("#password").val()
+
+            //当点击提交按钮的时候就会发送一个ajax请求到后端 index.js里的router函数就会执行 
+            //通过地址判定,交由api.handler来处理 api.handler在api.js里面
+            $.ajax({//调用接口  //通过ajax发送请求
+                url:'/users/login',
+                data:{//要传的参数   $.ajax的默认行为就是get 所以不用发送get
+                    username:username,
+                    password:password
+                },
+                success:function(result){
+                    console.log(result)
+                  if(result.uid){
+                      $.cookie('user_info',JSON.stringify(result),{expires:7,path:'/'})
+                       window.location.href = '/'
+                  }else if(result == 1){
+                       alert('用户已连接，请注销后再次尝试')   
+                   }else{
+                        $('#myModal').modal()
+                   }
+                }
+            })
+        }
+    </script>
+</body>
+</html>

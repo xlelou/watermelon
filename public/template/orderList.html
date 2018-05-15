@@ -1,0 +1,66 @@
+<div class="orderList" ng-controller="orderListController">
+
+        <ul class="list-group">
+                <li class="list-group-item good-box" style='margin-bottom:15px;' ng-repeat="order in orderList">
+                    <div>
+                      
+                       
+                        <p> 订单时间: <span class="label label-primary">{{order.formatTime}}</span></p>
+                        <p> 下单人: <span class="label label-primary">{{order.uname}}</span></p>
+                        <p> 下单人地址: <span class="label label-primary">{{order.address}}</span></p>
+                        <ul class="list-group-item good-box">
+                            <li ng-repeat="item in order.list">
+                                 <p> 货物名称: <span data-id="{{item.goodsID}}" class="label label-primary">{{item.goodsName}}</span> ，货物数量:<span class="label label-primary">{{item.count}}</span></p>
+                                </li>
+                        </ul>
+                    </div>
+                    <div class="row">
+                        <button ng-click="updateShow(order._id)" class="btn btn-info pull-right">编辑</button>
+                        <button ng-click="remove(order._id,$index)" class="btn btn-danger pull-right">删除</button>
+                    </div>
+                    
+                </li>
+            </ul>
+
+
+<style>
+        .modal{
+            display: block;
+        }
+    </style>
+<!-- 编辑商品 -->
+
+
+<div class="modal" ng-controller="orderUpdateController" ng-show="isUpdateShow.flag">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button  ng-click="isUpdateShow.flag=false"   type="button" class="close"><span>&times;</span></button>
+                <h4 class="modal-title">编辑</h4>
+            </div>
+            <div class="modal-body">
+                   
+                <label for="">下单时间</label>
+                <input ng-model="nowOrder.formatTime" type="text" class="form-control">
+                <label for="">下单人:</label>
+                <input ng-model="nowOrder.uname" type="text" class="form-control">
+            
+                <label  for="">下单人地址:</label>
+                <input ng-model="nowOrder.address" type="text" class="form-control">
+          
+                <ul class="list-group-item good-box" style="margin-top:10px;">
+                        <li ng-repeat="t in nowOrder.list">
+                             <p> 货物名称: <span data-id="{{t.goodsID}}" class="label label-primary">{{t.goodsName}}</span> ，货物数量:<span class="label label-primary">{{t.count}}</span> <button ng-click="removeOrder(t.goodsID,$index)" class="btn btn-danger pull-right">删除</button></p>
+                            
+                           
+                            </li>
+                    </ul>
+            </div>
+            <div class="modal-footer">
+                <button  ng-click="isUpdateShow.flag=false" type="button" class="btn btn-default">Close</button>
+                <button  ng-click="update()" type="button" class="btn btn-primary">更新</button>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>

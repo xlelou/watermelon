@@ -1,0 +1,101 @@
+<div class="orderList" ng-controller="usersListController">
+        <div style="margin-bottom:20px;">
+    
+                <div class="form-group">
+                        <label for="username">用户名</label>
+                        <input type="text" class="form-control" ng-model="newUserName" id="username" placeholder="用户名">
+                       
+                      </div>
+                      <div class="form-group">
+                            <label for="pw">密码 </label>
+                            <input type="password" class="form-control" ng-model="newPassword" id="pw" placeholder="密码">
+                           
+                          </div>
+                         
+                          <div class="form-group">
+                                <label for="name">昵称 </label>
+                                <input type="text" class="form-control" ng-model="newNickName" id="name" placeholder="昵称">
+                               
+                              </div>
+                          <div class="form-group">
+                                <label for="online">是否在线 </label>
+                                <input type="checkbox"  ng-model="newIsOnline" id="online"  >
+                               
+                              </div>
+                     
+                      <div class="row">
+                            <button ng-click="add()" class="btn btn-info pull-right">添加</button>
+                          
+                        </div>
+    
+        </div>
+          
+    
+    
+        <ul class="list-group">
+            <li class="list-group-item good-box" style='margin-bottom:15px;' ng-repeat="user in usersList">
+                <div>
+    
+    
+                    <p> 用户名:
+                        <span class="label label-primary">{{user.username}}</span>
+                    </p>
+                    <p> 密码:
+                            <span class="label label-primary">{{user.password}}</span>
+                        </p>
+                    <p> 昵称:
+                        <span class="label label-primary">{{user.nickname}}</span>
+                    </p>
+                    <p> 是否在线:
+                            <span class="label label-primary">{{user.isOnline}}</span>
+                         
+                        </p>
+                
+                </div>
+                <div class="row">
+                    <button ng-click="updateShow(user._id)" class="btn btn-info pull-right">编辑</button>
+                    <button ng-click="remove(user._id,$index)" class="btn btn-danger pull-right">删除</button>
+                </div>
+    
+            </li>
+        </ul>
+        <style>
+            .modal {
+                display: block;
+            }
+        </style>
+        <!-- 编辑商品 -->
+    
+    
+        <div class="modal" ng-controller="usersUpdateController" ng-show="isUpdateShow.flag">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button ng-click="isUpdateShow.flag=false" type="button" class="close">
+                            <span>&times;</span>
+                        </button>
+                        <h4 class="modal-title">编辑</h4>
+                    </div>
+                    <div class="modal-body">
+    
+                        <label for="">用户名</label>
+                        <input ng-model="nowUsersList.username" type="text" class="form-control">
+             
+                        <label for="">密码</label>
+                        <input ng-model="nowUsersList.password" type="text" class="form-control">
+                        <label for="">昵称</label>
+                        <input ng-model="nowUsersList.nickname" type="text" class="form-control">
+                        <label for="">是否登陆</label>
+                        
+                        <input type="checkbox"  ng-model="nowUsersList.isOnline" id=""  >
+                    </div>
+                    <div class="modal-footer">
+                        <button ng-click="isUpdateShow.flag=false" type="button" class="btn btn-default">Close</button>
+                        <button ng-click="update()" type="button" class="btn btn-primary">更新</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    </div>

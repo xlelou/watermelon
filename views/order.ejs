@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"> 
+    <link rel="stylesheet" href="/lib/animate.css">
+</head>
+<style>
+
+</style>
+
+<body>
+    <%- include('./header.ejs') %>
+   <div><%= results %></div>
+         <% results.forEach((item,i)=>{ %>
+            <li class="list-group-item good animated">
+                <input data-id="<%= item.goodid %>" type="checkbox" class="cbox"/>
+                <span data-id="<%= item.goodid %>" class="glyphicon glyphicon-remove remove"></span>
+                <div class="left">
+                    <img class="animated" src="<%= item.imgurl %>" alt=""> 
+                    <div class="info-box">
+                        <h3><%= item.name %></h3>
+                        <p>价格：<span class="price label label-danger"><%= item.price %></span>;小计：<span class="xj label label-danger"><%= item.num*item.price %></span></p>
+                    </div>
+            
+                </div>    
+                <!-- <div class="right">
+                    <button data-id="<%= item.goodid %>" class="reduce-btn btn btn-primary">-</button>
+                    <button class="num btn btn-default"><%= item.num %></button>
+                    <button data-id="<%= item.goodid %>" class="add-btn btn btn-primary">+</button>
+                </div> -->
+            </li> 
+                <% }) %>
+     <script src="/lib/jquery.js"></script>
+    <script src="/lib/jquery-cookie.js"></script>
+    <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+    
+   
+
+      
+    
+    
+
+</body>
+</html>
+
+
+
